@@ -1,0 +1,61 @@
+﻿<Page x:Class="Expense_Tracker.P1_Expense_Entries"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  Title="P1_New" Height="auto" Width="auto"
+      xmlns:local="clr-namespace:Expense_Tracker"
+      ShowsNavigationUI="False">
+   
+    <Page.DataContext>
+        <local:P1_Expense_Entries_ViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer   VerticalScrollBarVisibility="Visible" CanContentScroll="True">
+            <DataGrid   
+                Grid.Row="0"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                CanUserDeleteRows="True"
+                ItemsSource ="{Binding Path = ExpenseList.SingleMonthsEntries, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SelectedItem="{Binding Path = TempExpenseEntry}"
+                ColumnWidth="*"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                MinWidth="600"
+                >
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding Path=DeleteExpenseEntryCommand}"/>
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn     Header="Date"  Width="100" SortMemberPath="Date" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding Date, StringFormat=yy/MM/dd}" />
+                                <!--<TextBlock Text="{Binding Date}"/>-->
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn     Header="Category" MinWidth="200"       Width="auto"       Binding="{Binding Category}"/>
+                    <!--<DataGridTemplateColumn Header="Category" MinWidth="200" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource   ="{Binding possibleCategories, Mode=TwoWay}" 
+                                          SelectedItem  ="{Binding Path = Category}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>    
+                    </DataGridTemplateColumn>-->
+                    <DataGridTextColumn     Header="Amount"   Width="100"       Binding="{Binding Amount, StringFormat={}{0:n2}}"     />
+                    <DataGridTextColumn     Header="Comment"  Width="300*"       Binding="{Binding Comment}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+        <TextBox Grid.Row ="2" Text="{Binding ExpenseList.EntryTotal}"/>
+    </Grid>
+</Page>
+
+

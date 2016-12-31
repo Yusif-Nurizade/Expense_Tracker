@@ -1,0 +1,44 @@
+﻿<Page x:Class="Expense_Tracker.P4_Income_Categories"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+	  Title="P4_Income_Categories" Height="auto" Width="auto"
+      xmlns:local="clr-namespace:Expense_Tracker"
+      ShowsNavigationUI="False">
+    <Page.DataContext>
+        <local:P4_Income_Categories_ViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+            <DataGrid AutoGenerateColumns="False"
+                      ItemsSource ="{Binding Path = IncomeList.SingleMonthsCategories, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      SelectedItem="{Binding Path= TempIncomeCategory}">
+                <DataGrid.Columns>
+                        <DataGridTextColumn     Header="Name"       Width="*"     Binding="{Binding Name}"/>
+                        <DataGridTextColumn     Header="Amount"     Width="*"     Binding="{Binding Total, StringFormat={}{0:n2}}"/>
+                        <DataGridTextColumn     Header="Percent"    Width="*"     Binding="{Binding Percent, StringFormat={}{0:n2}}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        <DVC:Chart Grid.Column="1"  Name="CatChart" Width="auto" Height="auto" Background="White" Foreground="Black" Title="Income Category Chart" LegendTitle="Categories">
+                <DVC:PieSeries 
+                    Title="Categories"
+                    ItemsSource="{Binding Path=IncomeList.SingleMonthsCategories}"
+                    IndependentValuePath ="Name"
+                    DependentValuePath   ="Percent">
+                </DVC:PieSeries>
+        </DVC:Chart>
+    </Grid>
+</Page>
+
+

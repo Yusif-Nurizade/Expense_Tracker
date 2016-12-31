@@ -1,0 +1,35 @@
+﻿<Window x:Class="Expense_Tracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Expense Tracker" Height="500" Width="auto"
+        xmlns:local="clr-namespace:Expense_Tracker"
+        Icon="C:\Users\yusifn\Desktop\Misc_Work\Learning\Expense_Tracker\trunk\Post_XAML_Nutshell\Expense_Tracker\Images\DollarSign.ico"
+        >
+
+    <Window.DataContext>
+        <local:MainWindow_ViewModel/>
+    </Window.DataContext>
+
+    <!--<Window.DataContext>
+        <local:P1_New_ViewModel/>
+    </Window.DataContext>-->
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" IsMainMenu="True">
+            <MenuItem Header="File">
+                <MenuItem Header="Load" Command = "{Binding LoadExpenseListCommand}" />
+                <MenuItem Header="Save" Command = "{Binding ExportAllCommand}" />
+            </MenuItem>
+            
+            <MenuItem Header="Navigate">
+                    <MenuItem Header = "Expense Entries"    Click ="GoTo_Page_1" />
+                    <MenuItem Header = "Expense Categories" Click ="GoTo_Page_2" />
+                    <MenuItem Header = "Income Entries"     Click ="GoTo_Page_3" />
+                    <MenuItem Header = "Income Categories"  Click ="GoTo_Page_4" />
+                    <MenuItem Header = "Analysis"           Click ="GoTo_Page_5" />
+            </MenuItem>
+            <MenuItem Header="Help" />
+        </Menu>
+        <Frame x:Name="_mainFrame" Width="auto" DockPanel.Dock="Left" NavigationUIVisibility="Hidden"/>
+    </DockPanel>
+</Window>

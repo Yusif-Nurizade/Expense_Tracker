@@ -1,0 +1,31 @@
+﻿<Page x:Class="Expense_Tracker.P5_Analysis"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+	  Title="P5_Analysis" Height="auto" Width="auto"
+      xmlns:local="clr-namespace:Expense_Tracker"
+      ShowsNavigationUI="False">
+
+    <Page.DataContext>
+        <local:P5_Analysis_ViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <DVC:Chart  Canvas.Top="80" Canvas.Left="10" Name="ExpenseVsIncome"
+                    Width="auto" Height="auto"
+                    Background="White">
+            <DVC:Chart.Axes>
+                <DVC:LinearAxis Orientation="Y" Minimum="0"/>
+            </DVC:Chart.Axes>
+            <DVC:ColumnSeries  Title="Incomes" 
+                ItemsSource="{Binding Path = BudgetIncome}"
+                IndependentValueBinding="{Binding Name}"
+                DependentValueBinding = "{Binding Amount}">
+            </DVC:ColumnSeries>
+            <DVC:ColumnSeries  Title="Expenses"  
+                ItemsSource="{Binding Path = BudgetExpense}"
+                IndependentValueBinding="{Binding Name}"
+                DependentValueBinding = "{Binding Amount}"/>
+        </DVC:Chart>
+    </Grid>
+</Page>
